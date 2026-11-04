@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Savings Calculator | TruFlo Ortho</title><meta name="description" content="Calculate your operating room savings by eliminating suction line and handpiece clogs with TruFlo Ortho.">
+<link rel="icon" href="assets/img/truflo-logo.png"><link rel="stylesheet" href="assets/site.css">
+<style>
+.calc-page{padding-top:56px;padding-bottom:96px;background:#F4F7F9}
+.calc-shell{max-width:1120px;margin:0 auto;box-shadow:0 24px 60px rgba(24,77,107,.12);border-radius:20px;overflow:hidden;background:#fff}
+.calc-top{background:radial-gradient(55% 75% at 85% 35%,rgba(127,208,238,.30),transparent 70%),linear-gradient(115deg,#076A91 0%,#0A79A3 45%,#184D6B 100%);padding:40px 48px;color:#fff;position:relative}
+.calc-top .eyebrow{color:#CDEBF5;letter-spacing:.14em;text-transform:uppercase;font-size:13px;font-weight:700}
+.calc-top h1{font-size:clamp(28px,3.8vw,44px);line-height:1.12;margin:12px 0 10px;font-weight:700;color:#fff}
+.calc-top p{max-width:700px;margin:0;color:#E6F3F8;font-size:17px;line-height:1.55}
+.calc-main{padding:40px 48px;background:#fff}
+.calc-columns{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.calc-main h2{font-size:22px;margin:0 0 6px;color:#184D6B;font-weight:700}
+.calc-sub{color:#647583;font-size:14px;margin:0 0 24px}
+.calc-field{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #E2E8ED}
+.calc-field label{font-weight:600;font-size:14px;color:#212121;max-width:62%}
+.calc-field small{display:block;color:#647583;font-weight:400;font-size:12px;margin-top:2px}
+.calc-field.featured{background:linear-gradient(90deg,#F0F8FB,#F7FAFC);padding:18px 16px;border:1.5px solid #076A91;border-radius:12px;margin-bottom:18px}
+.calc-field.featured label{font-weight:700;color:#076A91;font-size:16px}
+.calc-field.featured input{background:#fff;border:2px solid #076A91;font-size:22px;height:52px;font-weight:700;color:#184D6B}
+.calc-inputwrap{display:flex;align-items:center;position:relative;width:130px}
+.calc-inputwrap input{width:100%;height:44px;text-align:right;background:#F8FBFD;border:1.5px solid #C9D3D9;border-radius:8px;font-weight:700;font-family:Montserrat,sans-serif;color:#184D6B;padding:0 12px;outline:none;font-variant-numeric:tabular-nums}
+.calc-inputwrap input:focus{background:#fff;border-color:#076A91;box-shadow:0 0 0 3px rgba(7,106,145,.2)}
+.calc-fixed{min-width:120px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums;color:#184D6B;font-size:15px;white-space:nowrap}
+.calc-lock{display:inline-block;margin-left:6px;opacity:.4;font-size:12px}
+.calc-section-tag{font-size:11px;text-transform:uppercase;font-weight:700;letter-spacing:.12em;color:#076A91;margin:20px 0 6px}
+.calc-results{display:flex;flex-direction:column;gap:12px}
+.calc-res{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;background:#F4F7F9;border:1px solid #DCE3E7;border-radius:12px}
+.calc-res span{font-size:14px;color:#4a5560;font-weight:600}
+.calc-res strong{font-size:24px;letter-spacing:-.03em;color:#184D6B;font-variant-numeric:tabular-nums}
+.calc-res.primary{display:block;color:#fff;background:linear-gradient(115deg,#076A91 0%,#0A79A3 55%,#184D6B 100%);border-color:transparent;padding:24px}
+.calc-res.primary span{color:#CDEBF5;display:block}
+.calc-res.primary strong{display:block;font-size:clamp(36px,4.5vw,50px);margin:6px 0;color:#fff}
+.calc-res.primary .micro{color:#E6F3F8;font-size:14px}
+.calc-res.primary.negative{background:linear-gradient(115deg,#B5462E,#E5422C)}
+.calc-metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.calc-metrics .calc-res{display:block}
+.calc-metrics .calc-res strong{display:block;margin-top:4px}
+.calc-barwrap{margin-top:10px;padding:18px 20px;border:1px solid #DCE3E7;border-radius:12px;background:#fff}
+.calc-barhead{display:flex;justify-content:space-between;gap:10px;font-size:13px;margin-bottom:10px;font-weight:600;color:#184D6B}
+.calc-bar{height:12px;background:#E2E8ED;border-radius:8px;overflow:hidden}
+.calc-barfill{height:100%;background:linear-gradient(90deg,#076A91,#2BA3CF);border-radius:8px;transition:width .25s ease}
+.calc-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;color:#5b6770;font-size:12px}
+.calc-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#076A91;margin-right:6px}
+.calc-dot.alt{background:#CBD5E1}
+.calc-details{border-collapse:collapse;width:100%;font-size:14px;margin-top:8px}
+.calc-details td{padding:10px 0;border-bottom:1px solid #E2E8ED}
+.calc-details td:last-child{text-align:right;font-weight:700;color:#184D6B;font-variant-numeric:tabular-nums}
+.calc-actions{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid #E2E8ED;margin-top:32px;padding-top:24px}
+.calc-note{margin:0;color:#5b6770;font-size:13px;line-height:1.6;max-width:700px}
+.calc-buttons{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.calc-btn{cursor:pointer;padding:12px 20px;border-radius:6px;font:700 14px Montserrat,sans-serif;border:1.5px solid #C9D3D9;background:#fff;color:#184D6B;transition:all .2s}
+.calc-btn:hover{background:#F4F7F9;border-color:#076A91}
+.calc-btn.dark{background:#184D6B;color:#fff;border-color:#184D6B}
+.calc-btn.dark:hover{background:#076A91;border-color:#076A91}
+@media(max-width:900px){
+  .calc-columns{grid-template-columns:1fr;gap:32px}
+  .calc-top{padding:30px 24px}
+  .calc-main{padding:28px 20px}
+  .calc-actions{flex-direction:column;align-items:stretch}
+}
+@media print{
+  .topbar,.hdr,footer,.calc-buttons{display:none!important}
+  .calc-shell{box-shadow:none;border-radius:0}
+  body{background:#fff}
+}
+</style>
+</head><body>
+<div class="topbar wrap"><div class="l"><a href="tel:+18888783561">Call 888-878-3561</a><a href="mailto:info@sustainmedical.com">info@sustainmedical.com</a></div><a href="https://sustainmedical.com">A Sustain Medical product &rarr;</a></div>
+<header class="hdr wrap"><a href="index.html"><img class="logo" src="assets/img/truflo-logo.webp" alt="TruFlo Ortho" width="228" height="46"></a>
+<nav class="nav"><a href="index.html">Home</a><a href="index.html#problem">The Problem</a><a href="index.html#how">How It Works</a><a href="economics.html">The Economics</a><a href="calculator.html" class="on">Savings Calculator</a><a href="faq.html">Free Trial</a></nav><a href="faq.html" class="btn btn-red btn-sm">Try TruFlo Ortho for Free</a>
+<div style="display:flex;gap:6px;align-items:center"><a href="faq.html" class="btn btn-red mcta">Try TruFlo Ortho for Free</a><button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+<nav class="mnav"><a href="index.html">Home</a><a href="index.html#problem">The Problem</a><a href="index.html#how">How It Works</a><a href="economics.html">The Economics</a><a href="calculator.html">Savings Calculator</a><a href="faq.html">Free Trial</a><a href="tel:+18888783561">Call 888-878-3561</a></nav></header>
+
+<main class="calc-page wrap">
+<div class="calc-shell">
+<header class="calc-top">
+<div class="eyebrow">Total Joint Replacement &bull; OR Efficiency Model</div>
+<h1>What are suction clogs<br>costing your OR?</h1>
+<p>Enter your annual total joint procedure volume to see the estimated financial impact of eliminating suction clogs with TruFlo Ortho.</p>
+</header>
+<div class="calc-main">
+<div class="calc-columns">
+<section aria-labelledby="inputs-heading">
+<h2 id="inputs-heading">Calculate Your Savings</h2>
+<p class="calc-sub">Adjust your annual procedure volume. All clinical and financial assumptions are locked below.</p>
+
+<div class="calc-field featured">
+<label for="cases">Annual total joint procedures</label>
+<div class="calc-inputwrap"><input id="cases" type="number" min="0" step="1" value="10"></div>
+</div>
+
+<div class="calc-field">
+<label for="orCost">OR time cost per minute</label>
+<div class="calc-fixed" aria-label="Fixed assumption">$65.00<span class="calc-lock" title="Fixed assumption" aria-hidden="true">&#128274;</span></div>
+</div>
+
+<div class="calc-section-tag">Handpiece Clog Assumptions</div>
+<div class="calc-field">
+<label for="handClogs">Handpiece clogs per case</label>
+<div class="calc-fixed" aria-label="Fixed assumption">3<span class="calc-lock" title="Fixed assumption" aria-hidden="true">&#128274;</span></div>
+</div>
+<div class="calc-field">
+<label for="handMinutes">Minutes to clear each handpiece clog</label>
+<div class="calc-fixed" aria-label="Fixed assumption">0.5 min<span class="calc-lock" title="Fixed assumption" aria-hidden="true">&#128274;</span></div>
+</div>
+
+<div class="calc-section-tag">Suction Line Clog Assumptions</div>
+<div class="calc-field">
+<label for="inlineClogs">Inline clogs per case</label>
+<div class="calc-fixed" aria-label="Fixed assumption">0.2<span class="calc-lock" title="Fixed assumption" aria-hidden="true">&#128274;</span></div>
+</div>
+<div class="calc-field">
+<label for="inlineMinutes">Minutes to clear each inline clog</label>
+<div class="calc-fixed" aria-label="Fixed assumption">4 min<span class="calc-lock" title="Fixed assumption" aria-hidden="true">&#128274;</span></div>
+</div>
+
+<div class="calc-section-tag">Device Cost Assumptions</div>
+<div class="calc-field">
+<label for="oldCost">Current handpiece cost per case</label>
+<div class="calc-fixed" aria-label="Fixed assumption">$12.00<span class="calc-lock" title="Fixed assumption" aria-hidden="true">&#128274;</span></div>
+</div>
+<div class="calc-field">
+<label for="trufloCost">TruFlo cost per case<small>Fixed at $75 per procedure</small></label>
+<div class="calc-fixed" aria-label="Fixed assumption">$75.00<span class="calc-lock" title="Fixed assumption" aria-hidden="true">&#128274;</span></div>
+</div>
+<div class="calc-field">
+<label for="eff">Clog-related time avoided<small>Model assumes 100% of clog-related time is avoided.</small></label>
+<div class="calc-fixed" aria-label="Fixed assumption">100%<span class="calc-lock" title="Fixed assumption" aria-hidden="true">&#128274;</span></div>
+</div>
+</section>
+
+<section aria-labelledby="results-heading">
+<h2 id="results-heading">Estimated Annual Impact</h2>
+<p class="calc-sub">Results update automatically as you modify procedure volume.</p>
+<div class="calc-results">
+<div class="calc-res primary" id="netTile">
+<span>Estimated Net Annual Savings</span>
+<strong id="net" aria-live="polite">$865</strong>
+<div class="micro" id="perCase">$86.50 estimated savings per case</div>
+</div>
+
+<div class="calc-metrics">
+<div class="calc-res">
+<span>Minutes lost to clogs / year</span>
+<strong id="minutesLost">23</strong>
+</div>
+<div class="calc-res">
+<span>Value of lost OR time / year</span>
+<strong id="timeCost">$1,495</strong>
+</div>
+</div>
+
+<div class="calc-res">
+<span>Current handpiece spending / year</span>
+<strong id="oldAnnual">$120</strong>
+</div>
+<div class="calc-res">
+<span>Total current annual costs</span>
+<strong id="currentTotal">$1,615</strong>
+</div>
+<div class="calc-res">
+<span>Annual TruFlo cost</span>
+<strong id="trufloAnnual">$750</strong>
+</div>
+
+<div class="calc-barwrap">
+<div class="calc-barhead">
+<span>Estimated net savings as % of current cost</span>
+<strong id="percentage">54%</strong>
+</div>
+<div class="calc-bar"><div class="calc-barfill" id="barFill" style="width:54%"></div></div>
+<div class="calc-legend">
+<span><i class="calc-dot"></i>Estimated net benefit</span>
+<span><i class="calc-dot alt"></i>Costs not offset</span>
+</div>
+</div>
+
+<h2 style="margin-top:20px;font-size:18px">How the Numbers Add Up</h2>
+<table class="calc-details">
+<tr><td>Handpiece clog minutes / year</td><td id="handTime">15</td></tr>
+<tr><td>Inline clog minutes / year</td><td id="inlineTime">8</td></tr>
+<tr><td>Estimated OR time value recovered</td><td id="recovered">$1,495</td></tr>
+<tr><td>Current supply costs avoided</td><td id="supplyAvoided">$120</td></tr>
+<tr><td>Less: TruFlo annual cost</td><td id="trufloLess">&minus;$750</td></tr>
+</table>
+</div>
+</section>
+</div>
+
+<div class="calc-actions">
+<p class="calc-note"><strong>Illustrative economic model, not guaranteed cash savings.</strong> Fixed assumptions: $65/minute of OR time, 3 handpiece clogs at 0.5 minutes each, 0.2 inline clogs at 4 minutes each, $12 existing handpiece cost and $75 TruFlo cost per procedure. Assumes 100% elimination of clog-related time and replacement of existing handpiece spending. Actual outcomes vary by surgical facility and case complexity.</p>
+<div class="calc-buttons">
+<button id="reset" class="calc-btn" type="button">Reset Volume</button>
+<button id="print" class="calc-btn dark" type="button">Print / Save PDF</button>
+<a href="faq.html" class="btn btn-red btn-sm">Try TruFlo Ortho for Free</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+<footer><div class="ft wrap"><div class="c"><img src="assets/img/truflo-logo.webp" alt="TruFlo Ortho" style="height:44px;width:max-content"><p>The Orthopedic Suction System That Never Clogs.</p><a href="https://sustainmedical.com" class="mont" style="font-weight:600;font-size:15px;color:#076A91">Learn more about Sustain Medical &rarr;</a></div>
+<div class="c"><h4>Site</h4><a href="index.html">Home</a><a href="index.html#problem">The Problem</a><a href="index.html#how">How It Works</a><a href="economics.html">The Economics</a><a href="calculator.html">Savings Calculator</a><a href="faq.html">Try TruFlo Ortho for Free</a><a href="assets/TruFlo-Ortho-Sell-Sheet.pdf" target="_blank" rel="noopener">Download Brochure (PDF)</a></div>
+<div class="c"><h4>Contact</h4><a href="tel:+18888783561" class="mont" style="font-weight:700;font-size:20px;color:#076A91">888-878-3561</a><a href="mailto:info@sustainmedical.com" style="color:#076A91">info@sustainmedical.com</a></div></div>
+<div class="fb wrap"><span>&copy; 2026 Sustain Medical</span><span>TruFlo Ortho</span></div></footer>
+
+<script>
+(function(){
+  'use strict';
+  const defaults = {cases:10,orCost:65,handClogs:3,handMinutes:.5,inlineClogs:.2,inlineMinutes:4,oldCost:12,trufloCost:75,eff:100};
+  const $ = id => document.getElementById(id);
+  const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
+  const precise = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
+  const number = n => new Intl.NumberFormat('en-US',{maximumFractionDigits:2}).format(n);
+  const value = id => {
+    if(id !== 'cases') return defaults[id];
+    const n = Number($('cases').value);
+    return Number.isFinite(n) ? Math.max(0, Math.floor(n)) : 0;
+  };
+  function update(){
+    const cases = value('cases'),
+          perMinute = value('orCost'),
+          h = cases * value('handClogs') * value('handMinutes'),
+          i = cases * value('inlineClogs') * value('inlineMinutes'),
+          time = h + i,
+          timeCost = time * perMinute,
+          oldAnnual = cases * value('oldCost'),
+          currentTotal = timeCost + oldAnnual,
+          trufloAnnual = cases * value('trufloCost'),
+          effective = Math.min(100, value('eff')) / 100,
+          recovered = timeCost * effective,
+          net = recovered + oldAnnual - trufloAnnual,
+          share = currentTotal > 0 ? Math.max(0, Math.min(100, 100 * net / currentTotal)) : 0;
+    for(const [id, val, fmt] of [
+      ['minutesLost', time, number],
+      ['timeCost', timeCost, money],
+      ['oldAnnual', oldAnnual, money],
+      ['currentTotal', currentTotal, money],
+      ['trufloAnnual', trufloAnnual, money],
+      ['net', net, money],
+      ['handTime', h, number],
+      ['inlineTime', i, number],
+      ['recovered', recovered, money],
+      ['supplyAvoided', oldAnnual, money]
+    ]){
+      if($(id)) $(id).textContent = fmt(val);
+    }
+    if($('trufloLess')) $('trufloLess').textContent = '&minus;' + money(trufloAnnual);
+    if($('perCase')) $('perCase').textContent = precise(cases ? net / cases : 0) + ' estimated net savings per case';
+    if($('percentage')) $('percentage').textContent = Math.round(share) + '%';
+    if($('barFill')) $('barFill').style.width = share + '%';
+    if($('netTile')) $('netTile').classList.toggle('negative', net < 0);
+  }
+  const c = $('cases');
+  if(c) c.addEventListener('input', update);
+  const r = $('reset');
+  if(r) r.addEventListener('click', () => { c.value = defaults.cases; update(); });
+  const p = $('print');
+  if(p) p.addEventListener('click', () => window.print());
+  update();
+})();
+</script>
+<script src="assets/site.js"></script>
+</body></html>
