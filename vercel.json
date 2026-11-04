@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/faq.html",
+      "destination": "/free-trial.html",
+      "permanent": true
+    },
+    {
+      "source": "/faq",
+      "destination": "/free-trial.html",
+      "permanent": true
+    }
+  ]
+}
