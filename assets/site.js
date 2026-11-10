@@ -140,7 +140,10 @@ function grid(){
          '<pattern id="tfgrid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.3" fill="#D3DEE4"/></pattern>'+
          '<pattern id="mesh" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 4h8M4 0v8" stroke="#8E84C4" stroke-width="1" opacity=".55"/></pattern>'+
          '<linearGradient id="cone" x1="0" x2="1"><stop offset="0" stop-color="#E9E6F7"/><stop offset=".5" stop-color="#FBFAFF"/><stop offset="1" stop-color="#DCD7F0"/></linearGradient>'+
-         '<linearGradient id="hpw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E3E7EA"/></linearGradient>'+
+         '<linearGradient id="coneH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCD7F0"/><stop offset=".35" stop-color="#FBFAFF"/><stop offset=".75" stop-color="#ECE9F8"/><stop offset="1" stop-color="#D4CEEB"/></linearGradient>'+
+         '<linearGradient id="hpw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".65" stop-color="#F6F8FA"/><stop offset="1" stop-color="#DDE4E9"/></linearGradient>'+
+         '<filter id="hpShadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#184D6B" flood-opacity="0.14"/></filter>'+
+         '<linearGradient id="hpBore" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D7EBF3"/><stop offset=".5" stop-color="#F0F8FB"/><stop offset="1" stop-color="#C5DFEA"/></linearGradient>'+
          '</defs><rect width="1000" height="440" rx="14" fill="url(#tfgrid)"/>';
 }
 
@@ -230,107 +233,119 @@ function problemSvg(){
 
 /* =========================================================================
    2. HOW IT WORKS / THE SOLUTION ANIMATION (#diag-flow > svg)
-   Faithful TruFlo wide-bore handpiece with gentle 25-30 deg tip curve.
-   Repositioned higher in the illustration.
-   Cyclone Filter oriented so flow ENTERS large end and EXITS small end.
-   Inlet tube connects to large end, outlet tube exits from small end.
-   Red dots (fluid) unimpeded; Black dots (bone fragments) trapped in basket.
-   ZERO blue dots.
-   Badges sequential 1, 2, 3 from left to right.
-   Precision positioning: zero text line intersections, clean leader lines.
+   Redrawn handpiece matching the real sleek tapered white handpiece:
+   - Gentle 25-30 deg curve (~28 deg) at the open distal tip
+   - Smooth tapered wide-bore body with large internal channel
+   - Rotation point (swivel joint) strictly at the back end tubing joint
+   Horizontal Cyclone Filter:
+   - Tubing from handpiece enters the LARGER-diameter inlet end (left)
+   - Tubing to suction evacuation unit exits from the SMALLER-diameter end (right)
+   - Solid debris (black dots) trapped inside horizontal mesh basket
+   - Liquid/blood (red dots) flows unimpeded out the smaller end
+   Zero text/line overlaps across all callout labels.
    ========================================================================= */
 function flowSvg(){
-  var s='<svg viewBox="0 0 1000 440" width="100%" role="img" aria-label="TruFlo Ortho: debris passes through the large-bore handpiece and is trapped in the Cyclone Filter while continuous suction keeps flowing" style="display:block;overflow:visible" font-family="Montserrat,sans-serif">'+grid();
+  var s='<svg viewBox="0 0 1000 440" width="100%" role="img" aria-label="TruFlo Ortho: debris passes through the large-bore handpiece and is trapped in the horizontal Cyclone Filter while continuous suction keeps flowing" style="display:block;overflow:visible" font-family="Montserrat,sans-serif">'+grid();
 
   /* Surgical site tissue bed */
-  s+='<ellipse cx="75" cy="235" rx="66" ry="40" fill="#F6E1DB"/>';
-  [[48,235],[68,248],[92,230],[56,222],[86,252]].forEach(function(p){
-    s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4.5" fill="'+DARK_RED+'" opacity=".55"/>';
+  s+='<ellipse cx="78" cy="218" rx="62" ry="34" fill="#F6E1DB"/>';
+  [[48,220],[66,233],[94,218],[56,204],[88,236]].forEach(function(p){
+    s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4.2" fill="'+DARK_RED+'" opacity=".55"/>';
   });
 
-  /* Handpiece centerline: gentle 25-30 degree curvature at tip, running higher at y=140 */
-  var HP_FLOW='M75,235 C110,216 135,140 170,140 L380,140';
+  /* Inlet tubing T1: attaches strictly to back-end swivel joint (398,172) -> larger-diameter end of Cyclone Filter (492,198) */
+  var T1='M398,172 C438,172 454,198 492,198';
 
-  /* Inlet tubing T1 from handpiece to large end (top) of Cyclone Filter */
-  var T1='M380,140 C460,140 560,95 660,95';
+  /* Outlet tubing T2: exits smaller-diameter end of Cyclone Filter (738,198) -> Suction evacuation unit (818,160) */
+  var T2='M738,198 C774,198 782,160 818,160';
 
-  /* Outlet tubing T2 from small end (bottom) of Cyclone Filter to suction evacuation unit */
-  var T2='M660,330 C660,370 730,160 818,160';
-
-  /* Draw clear suction tubing */
+  /* Clear suction tubing */
   s+=tube(T1,24,14,TUBE,TUBEIN);
-  s+=tube(T2,22,12,TUBE,TUBEIN);
+  s+=tube(T2,20,11,TUBE,TUBEIN);
 
-  /* Cyclone Filter: Flow enters LARGE end at top, exits SMALL end at bottom */
-  /* Top manifold cap & inlet port (Large diameter end) */
-  s+='<rect x="590" y="80" width="140" height="24" rx="8" fill="#D9D4F0" stroke="#8E84C4" stroke-width="2.5"/>';
-  s+='<rect x="646" y="65" width="28" height="20" rx="5" fill="#D9D4F0" stroke="#8E84C4" stroke-width="2.5"/>';
+  /* HORIZONTAL CYCLONE FILTER (Flow enters LARGE end at left, exits SMALL end at right) */
+  /* Larger-diameter inlet collar & purple manifold cap (left side, x=490..540) */
+  s+='<path d="M490,186 L518,181 L518,215 L490,210 Z" fill="#D9D4F0" stroke="#8E84C4" stroke-width="2.2" stroke-linejoin="round"/>';
+  s+='<rect x="518" y="134" width="22" height="128" rx="7" fill="#D9D4F0" stroke="#8E84C4" stroke-width="2.5"/>';
+  /* Molded locking lugs on large cap */
+  s+='<rect x="524" y="128" width="10" height="8" rx="3" fill="#D9D4F0" stroke="#8E84C4" stroke-width="2"/>';
+  s+='<rect x="524" y="260" width="10" height="8" rx="3" fill="#D9D4F0" stroke="#8E84C4" stroke-width="2"/>';
 
-  /* Translucent cone chamber: wide at top (y=104, width 120), narrow at bottom (y=300, width 40) */
-  s+='<path d="M600,104 L720,104 L680,300 L640,300 Z" fill="url(#cone)" stroke="#8E84C4" stroke-width="2.5" stroke-linejoin="round"/>';
+  /* Horizontal translucent cone chamber (wide at left x=540 -> conical taper to small end at right x=712) */
+  s+='<path d="M540,140 L654,148 L712,183 L712,213 L654,248 L540,256 Z" fill="url(#coneH)" stroke="#8E84C4" stroke-width="2.5" stroke-linejoin="round"/>';
 
-  /* Inner mesh filter basket inside the cone */
-  s+='<path d="M615,116 L705,116 L674,285 L646,285 Z" fill="url(#mesh)" stroke="#A79FD2" stroke-width="1.8"/>';
+  /* Inner perforated filter mesh basket inside horizontal housing */
+  s+='<path d="M550,152 L652,158 L684,174 L684,222 L652,238 L550,244 Z" fill="url(#mesh)" stroke="#A79FD2" stroke-width="1.8" stroke-linejoin="round"/>';
 
-  /* Bottom exit nozzle (Small diameter end) connecting to T2 */
-  s+='<rect x="648" y="300" width="24" height="30" rx="4" fill="#E4E0F5" stroke="#8E84C4" stroke-width="2.5"/>';
+  /* Smaller-diameter barbed exit nozzle (right side, x=712..740) connecting cleanly to outlet tubing T2 */
+  s+='<path d="M712,187 L740,190 L740,206 L712,209 Z" fill="#E4E0F5" stroke="#8E84C4" stroke-width="2.2" stroke-linejoin="round"/>';
+  s+='<line x1="724" y1="188" x2="724" y2="208" stroke="#8E84C4" stroke-width="1.8"/>';
+  s+='<line x1="733" y1="189" x2="733" y2="207" stroke="#8E84C4" stroke-width="1.8"/>';
 
-  /* Cyclonic vortex swirling flow indicator inside filter (Red fluid flow) */
-  s+='<path d="M660,110 C700,130 705,160 670,175 C635,190 635,220 665,235 C695,250 690,270 660,285" fill="none" stroke="'+RED+'" stroke-width="2.5" stroke-dasharray="6 8" opacity="0.65">'+
+  /* Cyclonic swirling fluid flow indicator inside horizontal cone (Red dashed vortex, left-to-right) */
+  s+='<path d="M542,198 C565,160 595,160 610,198 C625,236 650,234 666,198 C680,170 695,178 710,198" fill="none" stroke="'+RED+'" stroke-width="2.4" stroke-dasharray="6 8" opacity="0.65">'+
      '<animate attributeName="stroke-dashoffset" from="0" to="-28" dur="0.9s" repeatCount="indefinite"/>'+
      '</path>';
 
-  /* Visibly TRAPPED solid bone fragments resting in cyclone filter mesh basket (Black dots only) */
-  [[652,274],[660,280],[668,276],[655,266],[665,268],[658,258],[667,260],[662,284]].forEach(function(p){
-    s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4.2" fill="#1A1A1A"/>';
+  /* Visibly TRAPPED solid bone fragments resting inside horizontal mesh basket (Black dots only) */
+  [[606,232],[618,235],[630,233],[642,231],[652,226],[662,218],[672,212],[658,210],[646,219],[634,224],[668,202]].forEach(function(p){
+    s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4.1" fill="#1A1A1A"/>';
   });
 
   /* Suction evacuation unit (operating normally/continuous flow) */
   s+=machine(818,52,true);
 
-  /* TruFlo Ortho Handpiece: wide-bore ergonomic body and ribbed rotational collar */
-  s+='<path d="'+HP_FLOW+'" stroke="#CBD5E1" stroke-width="34" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
-  s+='<path d="'+HP_FLOW+'" stroke="url(#hpw)" stroke-width="30" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
-  s+='<path d="'+HP_FLOW+'" stroke="'+BORE+'" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/>';
+  /* TRUFLO ORTHO WHITE HANDPIECE (Sleek tapered white body with gentle 25-30 deg tip curve) */
+  s+='<g filter="url(#hpShadow)">';
+  /* Outer tapered white shell: slimmer at curved open tip (22px), flaring gently toward back hub (31px) */
+  s+='<path d="M77,196 C113,176 158,159 205,159 L364,156.5 L364,187.5 L205,185 C165,185 127,196 87,216 Z" fill="url(#hpw)" stroke="#9FB2BE" stroke-width="2" stroke-linejoin="round"/>';
+  /* Wide internal large-bore channel */
+  s+='<path d="M79,200 C116,181 160,163.5 205,163.5 L364,162.5 L364,181.5 L205,180.5 C163,180.5 123,192 85,212 Z" fill="url(#hpBore)" stroke="#B2D3E1" stroke-width="1"/>';
+  /* Distal open beveled suction tip rim */
+  s+='<g transform="translate(82,206) rotate(-28)">'+
+     '<ellipse cx="0" cy="0" rx="5" ry="10.8" fill="#FFFFFF" stroke="#9FB2BE" stroke-width="2"/>'+
+     '<ellipse cx="0" cy="0" rx="3.1" ry="6.8" fill="#B8DCEB" stroke="#7FA8BA" stroke-width="1"/>'+
+     '</g>';
+  s+='</g>';
 
-  /* Ergonomic ribbed rotational collar */
-  s+='<rect x="225" y="120" width="30" height="40" rx="6" fill="#076A91" stroke="#184D6B" stroke-width="2"/>';
-  s+='<line x1="233" y1="123" x2="233" y2="157" stroke="#7FD0EE" stroke-width="2"/>';
-  s+='<line x1="240" y1="123" x2="240" y2="157" stroke="#7FD0EE" stroke-width="2"/>';
-  s+='<line x1="247" y1="123" x2="247" y2="157" stroke="#7FD0EE" stroke-width="2"/>';
-  /* 360 rotation indicator arc */
-  s+='<path d="M228,110 A20,10 0 0 1 252,110" fill="none" stroke="#076A91" stroke-width="2.2"/><polygon points="251,105 258,111 250,114" fill="#076A91"/>';
+  /* BACK-END SWIVEL JOINT (Positioned strictly at the back end where handpiece attaches to tubing) */
+  s+='<rect x="358" y="155" width="8" height="34" rx="2" fill="#EEF3F6" stroke="#9FB2BE" stroke-width="1.8"/>';
+  s+='<rect x="366" y="157" width="26" height="30" rx="5" fill="#076A91" stroke="#184D6B" stroke-width="2"/>';
+  s+='<line x1="373" y1="160" x2="373" y2="184" stroke="#7FD0EE" stroke-width="1.8"/>';
+  s+='<line x1="379" y1="160" x2="379" y2="184" stroke="#7FD0EE" stroke-width="1.8"/>';
+  s+='<line x1="385" y1="160" x2="385" y2="184" stroke="#7FD0EE" stroke-width="1.8"/>';
+  s+='<path d="M392,161 L400,163 L400,181 L392,183 Z" fill="#D8E3EC" stroke="#8E9FAD" stroke-width="1.6" stroke-linejoin="round"/>';
 
-  /* Fluid & Debris Particles (Red and Black ONLY - ZERO Blue dots) */
-  /* RED DOTS (#E5422C): Blood & liquid flowing unimpeded through entire system to evacuation unit */
-  var RED_FLOW='M65,235 C100,216 135,140 170,140 L380,140 C460,140 560,95 660,95 L660,110 C690,130 695,160 665,175 C635,190 635,220 665,235 C685,250 680,270 660,290 L660,330 C660,370 730,160 818,160';
-  s+=dots(RED_FLOW,10,4.2,3.6,RED,0.85);
+  /* 360 degree rotation arrows strictly around the back-end swivel joint */
+  s+='<path d="M366,149 A18,10 0 0 1 391,149" fill="none" stroke="#076A91" stroke-width="2.2"/><polygon points="390,144 397,150 389,153" fill="#076A91"/>';
+  s+='<path d="M392,195 A18,10 0 0 1 367,195" fill="none" stroke="#076A91" stroke-width="2.2"/><polygon points="368,200 361,194 369,191" fill="#076A91"/>';
 
-  /* BLACK DOTS (#1A1A1A): Solid bone fragments entering handpiece and visibly trapped in filter basket */
-  var BLACK_DEBRIS='M65,235 C100,216 135,140 170,140 L380,140 C460,140 560,95 660,95 L660,115 C685,135 690,165 665,185 C640,200 645,230 660,255 L660,275';
-  s+=dots(BLACK_DEBRIS,4,3.8,4.6,'#1A1A1A',0.95);
+  /* Fluid & Debris Particles (Red liquid + Black solid debris ONLY) */
+  /* RED DOTS (#E5422C): Liquid/blood flowing unimpeded through handpiece, horizontal filter (large -> small end), and out to evacuation unit */
+  var RED_FLOW='M76,209 L82,206 C120,186 162,172 205,172 L398,172 C438,172 454,198 492,198 L542,198 C565,160 595,160 610,198 C625,236 650,234 666,198 C680,170 695,178 710,198 L738,198 C774,198 782,160 818,160';
+  s+=dots(RED_FLOW,10,4.4,3.6,RED,0.88);
+
+  /* BLACK DOTS (#1A1A1A): Solid bone fragments passing through large-bore handpiece & swivel, entering large filter end, and trapping inside basket */
+  var BLACK_DEBRIS='M76,209 L82,206 C120,186 162,172 205,172 L398,172 C438,172 454,198 492,198 L542,198 C575,198 605,222 658,220';
+  s+=dots(BLACK_DEBRIS,4,3.9,4.5,'#1A1A1A',0.95);
 
   /* =======================================================================
      CALLOUTS (Sequential 1, 2, 3 Left-to-Right with ZERO collisions)
      ======================================================================= */
-  
-  /* 1: Gently curved tip (left, positioned below the tip with clean clearance) */
-  s+='<line class="lbl" x1="42" y1="298" x2="68" y2="246" stroke="'+RED+'" stroke-width="1.8" stroke-dasharray="4 4"/>';
-  s+=callout('1', 40, 312, 64, 316, 'Gently curved tip', ['25\u201330\u00B0 curve enables access', 'to the femoral canal']);
 
-  /* 2: Large-bore rotating handpiece (middle)
-     Shifted further upward and to the left.
-     Leader line connects from collar to the bottom-left of the text box (to badge) with zero text intersection. */
-  s+='<path class="lbl" d="M235,118 L126,76 L120,44" fill="none" stroke="'+RED+'" stroke-width="1.8" stroke-dasharray="4 4"/>';
-  s+=callout('2', 120, 30, 144, 34, 'Large-bore rotating handpiece', ['Passes debris without clogging', '360\u00B0 ergonomic rotation']);
+  /* 1: Gently curved tip (points directly to the gentle 25-30 deg curved tip) */
+  s+='<line class="lbl" x1="44" y1="308" x2="78" y2="215" stroke="'+RED+'" stroke-width="1.8" stroke-dasharray="4 4"/>';
+  s+=callout('1', 44, 322, 68, 326, 'Gently curved tip', ['25\u201330\u00B0 curve enables access', 'to the femoral canal']);
 
-  /* 3: Patented Cyclone Filter (right)
-     Shifted higher up and to the right.
-     Leader line originates neatly from top of filter cap and points cleanly to the badge. */
-  s+='<path class="lbl" d="M640,78 L536,66 L530,40" fill="none" stroke="'+RED+'" stroke-width="1.8" stroke-dasharray="4 4"/>';
-  s+=callout('3', 530, 26, 554, 30, 'Patented Cyclone Filter', ['Traps debris \u2022 Keeps full suction pressure']);
+  /* 2: Large-bore rotating handpiece (leader routes cleanly to the back-end swivel joint with zero text crossing) */
+  s+='<path class="lbl" d="M379,134 L366,112 L96,112 L96,58" fill="none" stroke="'+RED+'" stroke-width="1.8" stroke-dasharray="4 4"/>';
+  s+=callout('2', 96, 44, 120, 48, 'Large-bore rotating handpiece', ['Passes debris without clogging', '360\u00B0 ergonomic rotation']);
 
-  /* Continuous suction flow label (centered directly over the evacuation unit, no overlap with Callout 3) */
+  /* 3: Patented Cyclone Filter (leader routes cleanly from horizontal filter body with zero overlap) */
+  s+='<path class="lbl" d="M615,138 L595,100 L448,100 L448,58" fill="none" stroke="'+RED+'" stroke-width="1.8" stroke-dasharray="4 4"/>';
+  s+=callout('3', 448, 44, 472, 48, 'Patented Cyclone Filter', ['Traps debris \u2022 Keeps full suction pressure']);
+
+  /* Continuous suction flow label (centered above evacuation unit) */
   s+='<text class="lbl" x="893" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#076A91" font-family="Montserrat,sans-serif">Continuous suction flow &rarr;</text>';
 
   /* Suction evacuation unit label (centered at bottom) */

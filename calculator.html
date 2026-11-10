@@ -43,9 +43,6 @@
 .calc-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;color:#5b6770;font-size:12px}
 .calc-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#076A91;margin-right:6px}
 .calc-dot.alt{background:#CBD5E1}
-.calc-details{border-collapse:collapse;width:100%;font-size:14px;margin-top:8px}
-.calc-details td{padding:10px 0;border-bottom:1px solid #E2E8ED}
-.calc-details td:last-child{text-align:right;font-weight:700;color:#184D6B;font-variant-numeric:tabular-nums}
 .calc-actions{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid #E2E8ED;margin-top:32px;padding-top:24px}
 .calc-note{margin:0;color:#5b6770;font-size:13px;line-height:1.6;max-width:700px}
 .calc-buttons{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
@@ -176,14 +173,6 @@
 </div>
 </div>
 
-<h2 style="margin-top:20px;font-size:18px">How the Numbers Add Up</h2>
-<table class="calc-details">
-<tr><td>Handpiece clog minutes / year</td><td id="handTime">15</td></tr>
-<tr><td>Inline clog minutes / year</td><td id="inlineTime">8</td></tr>
-<tr><td>Estimated OR time value recovered</td><td id="recovered">$1,495</td></tr>
-<tr><td>Current supply costs avoided</td><td id="supplyAvoided">$120</td></tr>
-<tr><td>Less: TruFlo annual cost</td><td id="trufloLess">&minus;$750</td></tr>
-</table>
 </div>
 </section>
 </div>
@@ -238,15 +227,10 @@
       ['oldAnnual', oldAnnual, money],
       ['currentTotal', currentTotal, money],
       ['trufloAnnual', trufloAnnual, money],
-      ['net', net, money],
-      ['handTime', h, number],
-      ['inlineTime', i, number],
-      ['recovered', recovered, money],
-      ['supplyAvoided', oldAnnual, money]
+      ['net', net, money]
     ]){
       if($(id)) $(id).textContent = fmt(val);
     }
-    if($('trufloLess')) $('trufloLess').textContent = '&minus;' + money(trufloAnnual);
     if($('perCase')) $('perCase').textContent = precise(cases ? net / cases : 0) + ' estimated net savings per case';
     if($('percentage')) $('percentage').textContent = Math.round(share) + '%';
     if($('barFill')) $('barFill').style.width = share + '%';
