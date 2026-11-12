@@ -9,6 +9,16 @@
       "source": "/faq",
       "destination": "/free-trial.html",
       "permanent": true
+    },
+    {
+      "source": "/economics.html",
+      "destination": "/index.html#economics",
+      "permanent": true
+    },
+    {
+      "source": "/economics",
+      "destination": "/index.html#economics",
+      "permanent": true
     }
   ]
 }
