@@ -8,11 +8,6 @@
 .calc-top .eyebrow{color:#CDEBF5;letter-spacing:.14em;text-transform:uppercase;font-size:13px;font-weight:700}
 .calc-top h1{font-size:clamp(28px,3.8vw,44px);line-height:1.12;margin:12px 0 10px;font-weight:700;color:#fff}
 .calc-top p{max-width:700px;margin:0;color:#E6F3F8;font-size:17px;line-height:1.55}
-.calc-top-grid{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
-.calc-top-copy{flex:1 1 520px}
-.calc-hero-stat{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.32);border-radius:14px;padding:22px 26px;min-width:260px;box-shadow:0 6px 20px rgba(0,0,0,.10)}
-.calc-hero-stat span{display:block;font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
-.calc-hero-stat strong{display:block;font-size:clamp(34px,4.2vw,48px);line-height:1.05;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
 .calc-main{padding:40px 48px;background:#fff}
 .calc-columns{display:grid;grid-template-columns:1fr 1fr;gap:48px}
 .calc-main h2{font-size:22px;margin:0 0 6px;color:#184D6B;font-weight:700}
@@ -59,8 +54,6 @@
 @media(max-width:900px){
   .calc-columns{grid-template-columns:1fr;gap:32px}
   .calc-top{padding:30px 24px}
-  .calc-top-grid{flex-direction:column;align-items:stretch;gap:20px}
-  .calc-hero-stat{min-width:0}
   .calc-main{padding:28px 20px}
   .calc-sub{min-height:0}
   .calc-actions{flex-direction:column;align-items:stretch}
@@ -81,17 +74,9 @@
 <main class="calc-page wrap">
 <div class="calc-shell">
 <header class="calc-top">
-<div class="calc-top-grid">
-<div class="calc-top-copy">
 <div class="eyebrow">Total Joint Replacement &bull; OR Efficiency Model</div>
 <h1>What are suction clogs<br>costing your OR?</h1>
 <p>Enter your annual total joint procedure volume to see the estimated financial impact of eliminating suction clogs with TruFlo Ortho.</p>
-</div>
-<div class="calc-hero-stat">
-<span>Total current annual costs</span>
-<strong id="heroCurrentTotal" aria-live="polite">$1,615</strong>
-</div>
-</div>
 </header>
 <div class="calc-main">
 <div class="calc-columns">
@@ -149,7 +134,7 @@
 <p class="calc-sub">Results update automatically as you modify procedure volume.</p>
 <div class="calc-results">
 <div class="calc-res primary" id="currentCostTile">
-<span>Estimated Annual Savings</span>
+<span>Total current annual costs</span>
 <strong id="currentTotal" aria-live="polite">$1,615</strong>
 </div>
 
@@ -169,7 +154,7 @@
 <strong id="oldAnnual">$120</strong>
 </div>
 <div class="calc-res primary" id="netTile">
-<span>Estimated Net Annual Savings</span>
+<span>Estimated Annual Savings</span>
 <strong id="net" aria-live="polite">$865</strong>
 <div class="micro" id="perCase">$86.50 estimated savings per case</div>
 </div>
@@ -243,7 +228,6 @@
       ['timeCost', timeCost, money],
       ['oldAnnual', oldAnnual, money],
       ['currentTotal', currentTotal, money],
-      ['heroCurrentTotal', currentTotal, money],
       ['trufloAnnual', trufloAnnual, money],
       ['net', net, money]
     ]){
