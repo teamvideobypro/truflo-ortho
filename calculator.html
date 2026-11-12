@@ -15,9 +15,10 @@
 .calc-field{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #E2E8ED}
 .calc-field label{font-weight:600;font-size:14px;color:#212121;max-width:62%}
 .calc-field small{display:block;color:#647583;font-weight:400;font-size:12px;margin-top:2px}
-.calc-field.featured{background:linear-gradient(90deg,#F0F8FB,#F7FAFC);padding:22px 24px;border:1.5px solid #076A91;border-radius:14px;margin-bottom:18px;box-shadow:0 6px 20px rgba(7,106,145,.08)}
-.calc-field.featured label{font-weight:700;color:#076A91;font-size:16px}
-.calc-field.featured input{background:#fff;border:2px solid #076A91;font-size:22px;height:52px;font-weight:700;color:#184D6B}
+.calc-field.featured{background:linear-gradient(115deg,#076A91 0%,#0A79A3 55%,#184D6B 100%);padding:22px 24px;border:1.5px solid #076A91;border-radius:14px;margin-bottom:18px;box-shadow:0 6px 20px rgba(7,106,145,.12)}
+.calc-field.featured label{font-weight:700;color:#fff;font-size:16px}
+.calc-field.featured input{background:#fff;border:2px solid #fff;font-size:22px;height:52px;font-weight:700;color:#184D6B}
+.calc-field.featured input:focus{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.35)}
 .calc-inputwrap{display:flex;align-items:center;position:relative;width:130px}
 .calc-inputwrap input{width:100%;height:44px;text-align:right;background:#F8FBFD;border:1.5px solid #C9D3D9;border-radius:8px;font-weight:700;font-family:Montserrat,sans-serif;color:#184D6B;padding:0 12px;outline:none;font-variant-numeric:tabular-nums}
 .calc-inputwrap input:focus{background:#fff;border-color:#076A91;box-shadow:0 0 0 3px rgba(7,106,145,.2)}
@@ -132,7 +133,7 @@
 <p class="calc-sub">Results update automatically as you modify procedure volume.</p>
 <div class="calc-results">
 <div class="calc-res primary" id="currentCostTile">
-<span>Total current annual costs</span>
+<span>Estimated Annual Savings</span>
 <strong id="currentTotal" aria-live="polite">$1,615</strong>
 </div>
 
