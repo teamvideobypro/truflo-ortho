@@ -216,11 +216,16 @@ function problemSvg(){
   var P_DOWN='M692,150 L818,150';
   s+=dots(P_DOWN,2,4.0,2,RED,.4);
 
+  /* Surgeon Character: Mildly stressed / concerned expression with traditional Yankauer clog */
+  s+='<g class="diag-char char-problem">'+
+     '<image href="assets/img/surgeon-problem.webp" x="330" y="44" width="150" height="220" preserveAspectRatio="xMidYMid meet"/>'+
+     '</g>';
+
   /* Callout 01: Clean layout with zero overlaps */
   s+='<path class="lbl" d="M160,288 L76,195 L70,164" fill="none" stroke="'+RED+'" stroke-width="1.8" stroke-dasharray="4 4"/>';
   s+=callout('01', 70, 150, 94, 154, 'Handpiece clogs mid-case', ['Suction drops at the surgical site', 'The team stops to clear or swap it'], '#C7341F');
 
-  s+='<text class="lbl" x="305" y="260" text-anchor="middle" font-size="13.5" font-weight="600" fill="#475569">Narrow-bore Yankauer handpiece</text>';
+  s+='<text class="lbl" x="285" y="332" text-anchor="middle" font-size="13.5" font-weight="600" fill="#475569">Narrow-bore Yankauer handpiece</text>';
 
   /* Callout 02: Clean layout with zero overlaps */
   s+='<path class="lbl" d="M675,158 L520,210 L515,236" fill="none" stroke="'+RED+'" stroke-width="1.8" stroke-dasharray="4 4"/>';
@@ -328,6 +333,11 @@ function flowSvg(){
   /* BLACK DOTS (#1A1A1A): Solid bone fragments passing through large-bore handpiece & swivel, entering large filter end, and trapping inside basket */
   var BLACK_DEBRIS='M76,209 L82,206 C120,186 162,172 205,172 L398,172 C438,172 454,198 492,198 L542,198 C575,198 605,222 658,220';
   s+=dots(BLACK_DEBRIS,4,3.9,4.5,'#1A1A1A',0.95);
+
+  /* Surgeon Character: Happy / satisfied expression with TruFlo Ortho continuous flow */
+  s+='<g class="diag-char char-solution">'+
+     '<image href="assets/img/surgeon-solution.webp" x="280" y="210" width="179" height="220" preserveAspectRatio="xMidYMid meet"/>'+
+     '</g>';
 
   /* =======================================================================
      CALLOUTS (Sequential 1, 2, 3 Left-to-Right with ZERO collisions)

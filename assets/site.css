@@ -168,3 +168,8 @@ section{position:relative}
 .calc iframe{margin-top:0}
 @media (max-width:980px){.lbgrid .col{display:contents!important}.lbgrid .fcard:nth-child(1){order:1}.lbgrid .col:last-child .fcard{order:2}.lbgrid .col:first-child .fcard:nth-child(2){order:3}.calc{padding-left:0;padding-right:0}}
 .form-sec h1.fh{font-weight:700;font-size:52px;line-height:1.08}@media (max-width:980px){.form-sec h1.fh{font-size:30px}}
+.diag-char{transform-box:fill-box;transform-origin:center bottom}
+.char-problem image{animation:charSigh 3.8s ease-in-out infinite}
+.char-solution image{animation:charHappy 3.6s ease-in-out infinite}
+@keyframes charSigh{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes charHappy{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
