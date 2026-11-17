@@ -216,9 +216,9 @@ function problemSvg(){
   var P_DOWN='M692,150 L818,150';
   s+=dots(P_DOWN,2,4.0,2,RED,.4);
 
-  /* Surgeon Character: Mildly stressed / concerned expression with traditional Yankauer clog */
+  /* Surgeon Character Duo: Frustrated / annoyed expressions with traditional Yankauer clog */
   s+='<g class="diag-char char-problem">'+
-     '<image href="assets/img/surgeon-problem.webp" x="330" y="44" width="150" height="220" preserveAspectRatio="xMidYMid meet"/>'+
+     '<image href="assets/img/surgeon-problem.webp" x="335" y="70" width="185" height="165" preserveAspectRatio="xMidYMid meet"/>'+
      '</g>';
 
   /* Callout 01: Clean layout with zero overlaps */
@@ -334,9 +334,9 @@ function flowSvg(){
   var BLACK_DEBRIS='M76,209 L82,206 C120,186 162,172 205,172 L398,172 C438,172 454,198 492,198 L542,198 C575,198 605,222 658,220';
   s+=dots(BLACK_DEBRIS,4,3.9,4.5,'#1A1A1A',0.95);
 
-  /* Surgeon Character: Happy / satisfied expression with TruFlo Ortho continuous flow */
+  /* Surgeon Character Duo: Happy / celebrating high-five with TruFlo Ortho continuous flow */
   s+='<g class="diag-char char-solution">'+
-     '<image href="assets/img/surgeon-solution.webp" x="280" y="210" width="179" height="220" preserveAspectRatio="xMidYMid meet"/>'+
+     '<image href="assets/img/surgeon-solution.webp" x="280" y="225" width="180" height="165" preserveAspectRatio="xMidYMid meet"/>'+
      '</g>';
 
   /* =======================================================================
