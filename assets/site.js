@@ -218,7 +218,7 @@ function problemSvg(){
 
   /* Surgeon Character Duo: Frustrated / annoyed expressions with traditional Yankauer clog */
   s+='<g class="diag-char char-problem">'+
-     '<image href="assets/img/surgeon-problem.webp" x="335" y="70" width="185" height="165" preserveAspectRatio="xMidYMid meet"/>'+
+     '<image href="assets/img/surgeon-problem.webp" x="295" y="42" width="166" height="148" preserveAspectRatio="xMidYMid meet"/>'+
      '</g>';
 
   /* Callout 01: Clean layout with zero overlaps */
@@ -336,7 +336,7 @@ function flowSvg(){
 
   /* Surgeon Character Duo: Happy / celebrating high-five with TruFlo Ortho continuous flow */
   s+='<g class="diag-char char-solution">'+
-     '<image href="assets/img/surgeon-solution.webp" x="280" y="225" width="180" height="165" preserveAspectRatio="xMidYMid meet"/>'+
+     '<image href="assets/img/surgeon-solution.webp" x="285" y="235" width="164" height="150" preserveAspectRatio="xMidYMid meet"/>'+
      '</g>';
 
   /* =======================================================================
