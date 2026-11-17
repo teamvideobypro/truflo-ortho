@@ -218,7 +218,7 @@ function problemSvg(){
 
   /* Surgeon Character Duo: Frustrated / annoyed expressions with traditional Yankauer clog */
   s+='<g class="diag-char char-problem">'+
-     '<image href="assets/img/surgeon-problem.webp" x="295" y="42" width="166" height="148" preserveAspectRatio="xMidYMid meet"/>'+
+     '<image href="assets/img/surgeon-problem.webp" x="330" y="30" width="144" height="132" preserveAspectRatio="xMidYMid meet"/>'+
      '</g>';
 
   /* Callout 01: Clean layout with zero overlaps */
